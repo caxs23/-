@@ -1,40 +1,46 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>오현세의 현세탈출</title>
+
   <style>
     body {
       margin: 0;
       font-family: "Pretendard", "Apple SD Gothic Neo", sans-serif;
       background: radial-gradient(circle at top, #222 0%, #000 70%);
       color: #f2f2f2;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
     }
 
     #game {
-      width: 90%;
-      max-width: 700px;
-      background: rgba(20, 20, 20, 0.95);
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.7);
+      width: 100%;
+      max-width: 420px;
+      min-height: 100vh;
+      box-sizing: border-box;
+      padding: 20px 16px 24px;
+      background: rgba(20, 20, 20, 0.96);
+      display: flex;
+      flex-direction: column;
     }
 
     h1 {
       text-align: center;
-      margin-bottom: 20px;
-      letter-spacing: 1px;
+      margin: 10px 0 18px;
+      font-size: 20px;
+      letter-spacing: 0.5px;
     }
 
     #text {
       white-space: pre-line;
-      line-height: 1.7;
-      margin-bottom: 25px;
-      font-size: 16px;
+      line-height: 1.75;
+      font-size: 15px;
+      flex-grow: 1;
+      margin-bottom: 20px;
     }
 
     .choices {
@@ -44,26 +50,27 @@
     }
 
     button {
-      padding: 12px;
-      font-size: 15px;
-      border-radius: 8px;
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      border-radius: 12px;
       border: none;
       cursor: pointer;
       background: #333;
       color: #fff;
-      transition: all 0.2s ease;
+      transition: transform 0.1s ease, background 0.15s ease;
+      touch-action: manipulation;
     }
 
-    button:hover {
-      background: #555;
-      transform: translateY(-2px);
+    button:active {
+      transform: scale(0.97);
     }
 
     .bad {
       background: #5a1f1f;
     }
 
-    .bad:hover {
+    .bad:active {
       background: #7a2a2a;
     }
 
@@ -71,22 +78,23 @@
       background: #1f4f5a;
     }
 
-    .good:hover {
+    .good:active {
       background: #2a6b7a;
     }
 
     .ending {
       text-align: center;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: bold;
+      line-height: 1.8;
     }
 
     .restart {
-      margin-top: 20px;
       background: #444;
     }
   </style>
 </head>
+
 <body>
   <div id="game">
     <h1>오현세의 현세탈출</h1>
@@ -186,7 +194,7 @@
 `밥차가 나가는 순간을 노려
 밥인 척 함께 나가려 했다.
 
-"그런거에 속을리가 없잖아."
+"어유. 뭐하는 거여~ 들어가셔~"
 
 보호사님은 나를
 가볍게 간파했다.
@@ -202,7 +210,7 @@
 `청소업무원님이 들어오는 순간
 몸을 날렸다.
 
-"어맛!!"
+"어머!!"
 
 문을 비집고 빠져나가는데 성공했다.
 달려!
