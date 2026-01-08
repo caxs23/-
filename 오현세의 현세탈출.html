@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>오현세의 현세탈출</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Pretendard", "Apple SD Gothic Neo", sans-serif;
+      background: radial-gradient(circle at top, #222 0%, #000 70%);
+      color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    #game {
+      width: 90%;
+      max-width: 700px;
+      background: rgba(20, 20, 20, 0.95);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.7);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    #text {
+      white-space: pre-line;
+      line-height: 1.7;
+      margin-bottom: 25px;
+      font-size: 16px;
+    }
+
+    .choices {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    button {
+      padding: 12px;
+      font-size: 15px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background: #333;
+      color: #fff;
+      transition: all 0.2s ease;
+    }
+
+    button:hover {
+      background: #555;
+      transform: translateY(-2px);
+    }
+
+    .bad {
+      background: #5a1f1f;
+    }
+
+    .bad:hover {
+      background: #7a2a2a;
+    }
+
+    .good {
+      background: #1f4f5a;
+    }
+
+    .good:hover {
+      background: #2a6b7a;
+    }
+
+    .ending {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .restart {
+      margin-top: 20px;
+      background: #444;
+    }
+  </style>
+</head>
+<body>
+  <div id="game">
+    <h1>오현세의 현세탈출</h1>
+    <div id="text"></div>
+    <div class="choices" id="choices"></div>
+  </div>
+
+  <script>
+    const textEl = document.getElementById("text");
+    const choicesEl = document.getElementById("choices");
+
+    function clearChoices() {
+      choicesEl.innerHTML = "";
+    }
+
+    function addChoice(text, className, action) {
+      const btn = document.createElement("button");
+      btn.textContent = text;
+      btn.className = className;
+      btn.onclick = action;
+      choicesEl.appendChild(btn);
+    }
+
+    function gameOver(message) {
+      textEl.innerHTML = message;
+      clearChoices();
+      addChoice("다시 시도한다", "restart", startGame);
+    }
+
+    function victory(message) {
+      textEl.innerHTML = `<div class="ending">${message}</div>`;
+      clearChoices();
+      addChoice("엔딩 다시 보기", "restart", startGame);
+    }
+
+    function startGame() {
+      textEl.innerHTML =
+`내 이름은 오현세.
+잠시 사정이 있어서 고대구로병원에 입원했다.
+
+여기는 정신과 병동이라
+내 마음대로 퇴원이 안 된다고 한다.
+나는 그것에 동의하지 않는다.
+
+나는…
+탈출할 것이다.`;
+      clearChoices();
+      addChoice("다음으로", "good", scene1);
+    }
+
+    function scene1() {
+      textEl.innerHTML =
+`[장면 1]
+
+첫 번째 관문.
+
+내 눈앞에는
+발레를 도는 여수진씨와,
+탁구를 하자고 조르는 현민이가 있다.
+
+누가 더 돌파하기 쉬울까.
+선택해야 한다.`;
+      clearChoices();
+      addChoice("여수진을 고른다", "bad", () => {
+        gameOver(
+`그녀는 생각보다 날쎈 발레 동작을 활용해
+현세의 허벅지에 로우킥을 날렸다.
+
+크헉…
+
+나는 그대로 KO되었다.
+
+[패배]`
+        );
+      });
+      addChoice("최현민을 고른다", "good", scene2);
+    }
+
+    function scene2() {
+      textEl.innerHTML =
+`"형. 나랑 탁구쳐줘."
+"다음에 하면 안될까?"
+"힝. 알았어."
+
+생각보다 쉽게 현민이를 통과했다.
+
+[장면 2]
+
+눈 앞에 보호병동의 철문이 보인다.
+어떻게 해야 탈출할 수 있지?
+
+속임수를 쓸까,
+정면 돌파를 할까?`;
+      clearChoices();
+      addChoice("속임수를 쓴다", "bad", () => {
+        gameOver(
+`밥차가 나가는 순간을 노려
+밥인 척 함께 나가려 했다.
+
+"그런거에 속을리가 없잖아."
+
+보호사님은 나를
+가볍게 간파했다.
+
+[패배]`
+        );
+      });
+      addChoice("정면 돌파를 시도한다", "good", scene3);
+    }
+
+    function scene3() {
+      textEl.innerHTML =
+`청소업무원님이 들어오는 순간
+몸을 날렸다.
+
+"어맛!!"
+
+문을 비집고 빠져나가는데 성공했다.
+달려!
+
+[장면 3]
+
+정신없이 달린다.
+눈 앞에 엘리베이터와 계단이 보인다.
+
+어디로 갈까?`;
+      clearChoices();
+      addChoice("엘리베이터", "bad", () => {
+        gameOver(
+`버튼을 누르고 멍하니 기다린다.
+
+7층… 8층…
+
+엘리베이터는 속절없이
+10층으로 향했다.
+
+간호사와 보호사의
+발소리가 가까워진다.
+
+[패배]`
+        );
+      });
+      addChoice("계단", "good", () => {
+        victory(
+`숨도 쉬지 않고
+나는 계단을 허겁지겁 내려갔다.
+
+간호사와 보호사는
+어느 정도 따라오다
+지쳤는지 포기한다.
+
+밖으로 빠져나오는데 성공했다.
+
+내가 가진 건 환자복 뿐이지만…
+
+이제 새로운 삶을
+시작할 차례다.
+
+[승리]`
+        );
+      });
+    }
+
+    startGame();
+  </script>
+</body>
+</html>
